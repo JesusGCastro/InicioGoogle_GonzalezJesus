@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "645059931133",
+    "firebase_url": "https://practica10-d5713-default-rtdb.firebaseio.com",
+    "project_id": "practica10-d5713",
+    "storage_bucket": "practica10-d5713.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645059931133:android:2fef78ec126ad094d7c794",
+        "android_client_info": {
+          "package_name": "gonzalez.jesus.practica10_gonzalezjesusx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo_aEJlKkI0z6yzzLH6tedqT_2r6yHmy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
