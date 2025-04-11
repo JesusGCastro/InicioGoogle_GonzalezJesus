@@ -43,12 +43,20 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        verificar_sesion_abierta()
+
         val etCorreo: EditText = findViewById(R.id.etCorreo) as EditText
         val etPassword: EditText = findViewById(R.id.etPassword) as EditText
-
-
         val btnLogin: Button = findViewById(R.id.btn_login) as Button
         val btnLoginGoogle: Button = findViewById(R.id.btnLoginGoogle) as Button
+
+        btnLogin.setOnClickListener {
+            login_firebase(etCorreo.text.toString(), etPassword.text.toString())
+        }
+
+        btnLoginGoogle.setOnClickListener{
+            loginGoogle()
+        }
 
 
     }
@@ -83,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @Composable
+    /*@Composable
     fun loginGoogle(){
         val context = LocalContext.current
         val coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -114,6 +122,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+*/
+
+    fun loginGoogle() {
+        val credentialManager = CredentialManager.create(this)
+
+        val signInWithGoogleOption: GetSignInWithGoogleOption =
+            GetSignInWithGoogleOption.Builder(getString(R.string.web_client))
+                .setNonce("nonce")
+                .build()
+
+        val request: GetCredentialRequest = GetCredentialRequest.Builder()
+            .addCredentialOption(signInWithGoogleOption)
+            .build()
+
+        CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = this@MainActivity,
+                )
+                handleSignIn(result)
+            } catch (e: GetCredentialException) {
+                Toast.makeText(
+                    applicationContext,
+                    "Error al obtener credencial: $e",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
 
     fun handleSignIn(result: GetCredentialResponse){
         val credential = result.credential
